@@ -10,9 +10,11 @@ using std::make_tuple;
 using std::string;
 
 Object::Object() {
+    enableTick();
 }
 
 Object::~Object() {
+    disableTick();
 }
 
 void Object::addTimer(double period, std::string name, TimerFunc callBack) {
@@ -21,15 +23,19 @@ void Object::addTimer(double period, std::string name, TimerFunc callBack) {
 }
 
 void Object::removeTimer(std::string name) {
-    timers.erase(name);
+    if (tickedObjects.count(this) != 0) {
+        timers.erase(name);
+    }
 }
 
 void Object::disableTick() {
-    enableTick= false;
+    tickedObjects.erase(this);
 }
 
 void Object::enableTick() {
-    enableTick= true;
+    if (tickedObjects.count(this) == 0) {
+        tickedObjects.insert(this);
+    }
 }
 
 void Object::tick(double delta) {

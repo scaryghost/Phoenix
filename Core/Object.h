@@ -5,6 +5,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace etsai {
 namespace phoenix {
@@ -35,7 +36,7 @@ public:
     void removeTimer(std::string name);
 
     /**
-     * Disable the tick function
+     * Disable the tick function.  This will also disable calling the timer functions.
      */
     void disableTick();
     /**
@@ -52,8 +53,8 @@ public:
 private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;
     std::unordered_map<std::string, TimerInfo> timers;
-    double timerPeriod;
-    bool enableTick;
+
+    static std::unordered_set<Object*> tickedObjects;
 };
 
 }
