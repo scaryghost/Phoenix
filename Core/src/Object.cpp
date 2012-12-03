@@ -5,9 +5,13 @@
 namespace etsai {
 namespace phoenix {
 
+using std::get;
 using std::make_pair;
 using std::make_tuple;
 using std::string;
+using std::unordered_set;
+
+unordered_set<Object*> Object::tickedObjects;
 
 Object::Object() {
     enableTick();
