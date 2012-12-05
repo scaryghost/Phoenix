@@ -11,7 +11,13 @@ using std::make_tuple;
 using std::string;
 using std::unordered_set;
 
-unordered_set<Object*> Object::tickedObjects;
+unordered_set<Object*> Object::tickableObjects;
+
+void Object::tickObjects(double delta) {
+    for(auto it= tickableObjects.begin(); it != tickableObjects.end(); it++) {
+        (*it)->tick(delta);
+    }
+}
 
 Object::Object() {
     enableTick();
@@ -27,18 +33,18 @@ void Object::addTimer(double period, std::string name, TimerFunc callBack) {
 }
 
 void Object::removeTimer(std::string name) {
-    if (tickedObjects.count(this) != 0) {
+    if (tickableObjects.count(this) != 0) {
         timers.erase(name);
     }
 }
 
 void Object::disableTick() {
-    tickedObjects.erase(this);
+    tickableObjects.erase(this);
 }
 
 void Object::enableTick() {
-    if (tickedObjects.count(this) == 0) {
-        tickedObjects.insert(this);
+    if (tickableObjects.count(this) == 0) {
+        tickableObjects.insert(this);
     }
 }
 

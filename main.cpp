@@ -1,3 +1,4 @@
+#include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/Actor.h"
 
 #include <allegro5/allegro.h>
@@ -7,6 +8,7 @@
 
 using std::cerr;
 using std::endl;
+using etsai::phoenix::Object;
 using etsai::phoenix::Actor;
 
 class AllegroActor : public Actor {
@@ -46,7 +48,7 @@ int main(int argc, char **argv) {
         al_wait_for_event(event_queue, &ev);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        test->tick(1.0/3.0);
+        Object::tickObjects(1.0/3.0);
         test->draw();
         al_flip_display();
     } while(ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);

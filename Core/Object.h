@@ -16,6 +16,12 @@ namespace phoenix {
  */
 class Object {
 public:
+    /**
+     * Call the tick function for all tickable Objects
+     * @param   delta   Elapsed time since last tick
+     */
+    static void tickObjects(double delta);
+
     /** Lambda type for timer function callbacks */
     typedef std::function<void ()> TimerFunc;
 
@@ -54,7 +60,7 @@ private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;
     std::unordered_map<std::string, TimerInfo> timers;
 
-    static std::unordered_set<Object*> tickedObjects;
+    static std::unordered_set<Object*> tickableObjects;
 };
 
 }
