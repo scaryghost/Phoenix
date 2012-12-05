@@ -48,7 +48,7 @@ public:
      * are also updated here
      * @param   delta   How much time has elapsed since the previous call
      */
-    void tick(double delta);
+    virtual void tick(double delta);
 
 private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;
