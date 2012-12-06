@@ -13,7 +13,7 @@ using etsai::phoenix::Actor;
 
 class AllegroActor : public Actor {
 public:
-    AllegroActor(int xPos, int yPos) : Actor(xPos, yPos) { this->width=64; this->height= 64; }
+    AllegroActor(int xPos, int yPos) : Actor(xPos, yPos) { this->width=5; this->height= 20; }
 
     virtual void draw() {
         al_draw_filled_rectangle(xPos, yPos, xPos + width, yPos + height, al_map_rgb(0,255,0));
@@ -21,7 +21,8 @@ public:
 
     virtual void tick(double delta) {
         Object::tick(delta);
-        xPos+= 3.0 * delta;
+        yPos-= 90.0 * delta;
+        destroy= yPos < 0;
     }
 private:
     int width, height;
@@ -29,7 +30,7 @@ private:
 
 int main(int argc, char **argv) {
     int width= atoi(argv[1]), height= atoi(argv[2]);
-    Actor* test= new AllegroActor(100, 100);
+    Actor* test= new AllegroActor(100, height-20);
 
     if(!al_init()) {
         cerr << "failed to initialize allegro!" << endl;
@@ -38,7 +39,7 @@ int main(int argc, char **argv) {
     al_init_primitives_addon();
     ALLEGRO_DISPLAY *display= al_create_display(width, height);
     ALLEGRO_EVENT_QUEUE *event_queue= al_create_event_queue();
-    ALLEGRO_TIMER *timer= al_create_timer(1.0/3.0);
+    ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -48,12 +49,11 @@ int main(int argc, char **argv) {
         al_wait_for_event(event_queue, &ev);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        Object::tickObjects(1.0/3.0);
-        test->draw();
+        Object::tickObjects(1.0/30.0);
+        Actor::drawActors();
         al_flip_display();
     } while(ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
     al_destroy_display(display);
-    delete test;
     return 0;
 }

@@ -11,7 +11,7 @@ namespace etsai {
 namespace phoenix {
 
 /**
- * Base class that all PHoenix related classes derive from
+ * Base class that all Phoenix related classes derive from
  * @author etsai
  */
 class Object {
@@ -26,7 +26,7 @@ public:
     typedef std::function<void ()> TimerFunc;
 
     Object();
-    ~Object();
+    virtual ~Object();
 
     /**
      * Add custom timer callback
@@ -55,6 +55,9 @@ public:
      * @param   delta   How much time has elapsed since the previous call
      */
     virtual void tick(double delta);
+
+protected:
+    bool destroy;
 
 private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;

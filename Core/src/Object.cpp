@@ -14,12 +14,22 @@ using std::unordered_set;
 unordered_set<Object*> Object::tickableObjects;
 
 void Object::tickObjects(double delta) {
+    unordered_set<Object*> toDestroy;
+    
     for(auto it= tickableObjects.begin(); it != tickableObjects.end(); it++) {
         (*it)->tick(delta);
+        if ((*it)->destroy) {
+            toDestroy.insert(*it);
+        }
+    }
+
+    for(auto it= toDestroy.begin(); it != toDestroy.end(); it++) {
+        delete (*it);
     }
 }
 
-Object::Object() {
+Object::Object() : 
+destroy(false) {
     enableTick();
 }
 
