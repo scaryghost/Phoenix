@@ -24,7 +24,10 @@ public:
      * @param   yPos    Y coordinate of the Actor
      */
     Actor(int xPos, int yPos);
-    ~Actor();
+    virtual ~Actor();
+
+    void moveXAxis(double offset) {xPos += offset; }
+    void moveYAxis(double offset) {yPos += offset; }
 
     /**
      * Draw this actor on screen
