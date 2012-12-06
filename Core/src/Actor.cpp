@@ -1,25 +1,23 @@
 #include "Phoenix/Core/Actor.h"
 
+#include <stdexcept>
+
 namespace etsai {
 namespace phoenix {
 
 using std::unordered_set;
 
+unordered_set<Actor*> Actor::activeActors;
 unordered_set<Actor*> Actor::actors;
+
+void Actor::checkCollitions(Actor* actor) {
+    throw std::runtime_error("Not yet implemented!");
+}
 
 void Actor::drawActors() {
     for(auto it= actors.begin(); it != actors.end(); it++) {
         (*it)->draw();
     }
-}
-
-Actor::Actor(float xPos, float yPos) : Object(),
-xPos(xPos), yPos(yPos) {
-    actors.insert(this);
-}
-
-Actor::~Actor() {
-    actors.erase(this);
 }
 
 }

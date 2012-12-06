@@ -19,6 +19,10 @@ public:
         al_draw_filled_rectangle(xPos, yPos, xPos + width, yPos + height, al_map_rgb(0,255,0));
     }
 
+    virtual void touch(Actor *actor) {
+        cerr << "Hello" << endl;
+    }
+
 private:
     int width, height;
 };
