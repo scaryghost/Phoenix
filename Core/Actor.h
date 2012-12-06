@@ -23,11 +23,11 @@ public:
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
      */
-    Actor(int xPos, int yPos);
+    Actor(float xPos, float yPos);
     virtual ~Actor();
 
-    void moveXAxis(double offset) {xPos += offset; }
-    void moveYAxis(double offset) {yPos += offset; }
+    void moveXAxis(float offset) {xPos += offset; }
+    void moveYAxis(float offset) {yPos += offset; }
 
     /**
      * Draw this actor on screen
@@ -37,8 +37,8 @@ public:
 protected:
     static std::unordered_set<Actor*> actors;
 
-    int xPos;
-    int yPos;
+    float xPos;
+    float yPos;
 };
 
 }   //namespace phoenix

@@ -13,7 +13,7 @@ void Actor::drawActors() {
     }
 }
 
-Actor::Actor(int xPos, int yPos): Object(),
+Actor::Actor(double xPos, double yPos): Object(),
 xPos(xPos), yPos(yPos) {
     actors.insert(this);
 }

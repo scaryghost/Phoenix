@@ -1,7 +1,6 @@
 #include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/Actor.h"
 #include "Phoenix/Core/Pawn.h"
-#include "Phoenix/Core/Controller.h"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -14,7 +13,7 @@ using namespace etsai::phoenix;
 
 class AllegroPawn : public Pawn {
 public:
-    AllegroPawn(int xPos, int yPos) : Pawn(xPos, yPos) { this->width= 64; this->height= 64; }
+    AllegroPawn(float xPos, float yPos) : Pawn(xPos, yPos) { this->width= 64; this->height= 64; }
 
     virtual void draw() {
         al_draw_filled_rectangle(xPos, yPos, xPos + width, yPos + height, al_map_rgb(0,255,0));
