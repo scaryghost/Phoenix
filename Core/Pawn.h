@@ -8,9 +8,11 @@ namespace phoenix {
 
 class Pawn : public Actor {
 public:
-    Pawn(int xPos, int yPos);
-    virtual ~Pawn();
+    Pawn(int xPos, int yPos) : Actor(xPos, yPos) { health= 100; }
+    virtual ~Pawn() {
+    }
 
+    //void possessedBy(Controller *controller) { this->controller= controller; }
     virtual void takeDamage(float damage) { health -= damage; }
     virtual void tick(double delta) {
         Actor::tick(delta);
