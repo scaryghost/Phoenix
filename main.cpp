@@ -1,6 +1,5 @@
 #include "Phoenix/Core/Object.h"
-#include "Phoenix/Core/Actor.h"
-#include "Phoenix/Core/Pawn.h"
+#include "Phoenix/Core/HitBox.h"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -9,27 +8,40 @@
 
 using std::cerr;
 using std::endl;
+using std::get;
 using namespace etsai::phoenix;
 
-class AllegroPawn : public Pawn {
+class AllegroHitBox : public HitBox {
 public:
-    AllegroPawn(float xPos, float yPos) : Pawn(xPos, yPos) { this->width= 64; this->height= 64; }
+    AllegroHitBox(float xPos, float yPos) : HitBox(xPos, yPos) { }
 
     virtual void draw() {
-        al_draw_filled_rectangle(xPos, yPos, xPos + width, yPos + height, al_map_rgb(0,255,0));
+        for(auto it= boundaryOffsets.begin(); it != boundaryOffsets.end() - 1; it++) {
+            al_draw_line(xPos + get<0>(*it), yPos + get<1>(*it), xPos + get<0>(*(it+1)), yPos + get<1>(*(it+1)), al_map_rgb(0, 255, 0), 2.0);
+        }
     }
 
-    virtual void touch(Actor *actor) {
-        cerr << "Hello" << endl;
+    virtual void touch(Actor* actor) {
+        cerr << "AllegroHitBox - touch" << endl;
     }
-
-private:
-    int width, height;
 };
 
 int main(int argc, char **argv) {
     int width= atoi(argv[1]), height= atoi(argv[2]);
-    Pawn *test= new AllegroPawn(100, 100);
+    HitBox *test= new AllegroHitBox(100, 100);
+
+    test->addTimer(1.0, "rotate", [&test]() -> void {
+        test->rotate(3.141592653589793238462643383279502/180.0);
+    });
+    test->addTimer(10.0, "translate", [&test]() -> void {
+        test->translate(1, 1);
+    });
+
+    test->addBoundaryPoint(-50, -50);
+    test->addBoundaryPoint(-50, 50);
+    test->addBoundaryPoint(50, 50);
+    test->addBoundaryPoint(50, -50);
+    test->addBoundaryPoint(-50, -50);
 
     if(!al_init()) {
         cerr << "failed to initialize allegro!" << endl;
@@ -58,7 +70,9 @@ int main(int argc, char **argv) {
                 break;
             case ALLEGRO_EVENT_KEY_CHAR:
                 if (ev.keyboard.keycode == ALLEGRO_KEY_W) {
-                    test->moveYAxis(-1);
+                    test->rotate(3.141592653589793238462643383279502/180.0);
+                } else if (ev.keyboard.keycode == ALLEGRO_KEY_S) {
+                    test->rotate(-3.141592653589793238462643383279502/180.0);
                 }
                 break;
         }

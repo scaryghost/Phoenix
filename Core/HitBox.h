@@ -19,11 +19,12 @@ public:
     void translate(float xOffset, float yOffset);
     void addBoundaryPoint(float xOffset, float yOffset);
     void removeLastPoint();
-private:
+
+protected:
     std::vector<std::tuple<float, float> > boundaryOffsets;
 };
 
 }
 }
-s
+
 #endif
