@@ -20,8 +20,15 @@ public:
      */
     Pawn(float xPos, float yPos) : Actor(xPos, yPos), 
         health(100.0), healthMax(100.0) { }
+    /**
+     * Class destructor
+     */
     virtual ~Pawn() { }
 
+    /**
+     * Restores health to the pawn, not exceeding the maximum amount
+     * @param   amount  Amound of health to given as a positive number
+     */
     void giveHealth(float amount) { health= std::max<float>(healthMax, health + std::fabs(amount)); }
     /**
      * Applies damage to the given pawn
@@ -33,8 +40,8 @@ public:
         destroy= (health <= 0);
     }
 protected:
-    float health;
-    float healthMax;
+    float health;           ///< Current health of the pawn
+    float healthMax;        ///< Maximum health of the pawn
 };
 
 }   //namespace phoenix

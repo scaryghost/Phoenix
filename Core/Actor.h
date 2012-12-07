@@ -16,7 +16,7 @@ namespace phoenix {
 class Actor : public Object {
 public:
     /**
-     * Checks if the actor has collided with any active Actors.  Actors that have collided with 
+     * Checks if the actor has collided with any spawned actors.  Actors that have collided with 
      * each other will have their touch functions called.
      * @param   actor   Actor to check
      */
@@ -27,16 +27,24 @@ public:
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
      */
-    Actor(float xPos, float yPos) : Object(xPos, yPos), angle(0.0) {
+    Actor(float xPos, float yPos) : Object(xPos, yPos), rotation(0.0) {
         actors.insert(this);
     }
+    /**
+     * Class destructor
+     */
     virtual ~Actor() {
         actors.erase(this);
     }
 
+    /**
+     * Rotate the actor by a fixed amount
+     * @note Input is in radians
+     * @param   radians     The amount, in radians, to rotate the hit box by
+     */
     void rotate(float radians) {
         hitbox->rotate(radians);
-        angle+= radians;
+        rotation+= radians;
     }
 
     /**
@@ -46,11 +54,11 @@ public:
     virtual void touch(Actor* actor)= 0;
 
 protected:
-    HitBox *hitbox;
-    float angle;
+    HitBox *hitbox;     ///< Hit box around the actor
+    float rotation;     ///< Rotation angle of the actor
 
 private:
-    static std::unordered_set<Actor*> actors;
+    static std::unordered_set<Actor*> actors;   ///< Set of all spawned actors
 };
 
 }   //namespace phoenix

@@ -27,10 +27,23 @@ public:
     /** Lambda type for timer function callbacks */
     typedef std::function<void ()> TimerFunc;
 
+    /**
+     * Create an object at the given point (xPos, yPos).  Objects by default will have 
+     * their tick function will be called
+     * @param   xPos    X coordinate of the object
+     * @param   yPos    Y coordinate of the object
+     */
     Object(float xPos, float yPos);
+    /**
+     * Class destructor
+     */
     virtual ~Object();
 
-    
+    /**
+     * Move the object with the specified horizontal and vertical offsets
+     * @param   xOffset     Horizontal offset to move the object
+     * @param   yOffset     Vertical offset to move the object
+     */
     void translate(float xOffset, float yOffset) {
         xPos+= xOffset;
         yPos+= yOffset;
@@ -69,16 +82,16 @@ public:
      */
     virtual void draw()= 0;
 protected:
-    bool destroy;
-    float xPos;
-    float yPos;
+    bool destroy;       ///< True if the object should be destroyed
+    float xPos;         ///< X coordinate of the object
+    float yPos;         ///< Y coordinate of the object
 
 private:
-    typedef std::tuple<double, double, TimerFunc> TimerInfo;
-    std::unordered_map<std::string, TimerInfo> timers;
+    typedef std::tuple<double, double, TimerFunc> TimerInfo;    ///< Timer function information, storing period, accumulated timer, and lambda callback
+    std::unordered_map<std::string, TimerInfo> timers;          ///< Maps timer names to their info tuple
 
-    static std::unordered_set<Object*> tickableObjects;
-    static std::unordered_set<Object*> objects;
+    static std::unordered_set<Object*> tickableObjects;         ///< Objects that will have their tick function called before the next frame
+    static std::unordered_set<Object*> objects;                 ///< All spawned objects
 };
 
 }
