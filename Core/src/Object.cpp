@@ -36,7 +36,7 @@ void Object::drawObjects() {
 }
 
 Object::Object(float xPos, float yPos) : 
-destroy(false),xPos(xPos),yPos(yPos) {
+destroy(false),xPos(xPos),yPos(yPos),rotation(0.0) {
     enableTick();
     objects.insert(this);
 }

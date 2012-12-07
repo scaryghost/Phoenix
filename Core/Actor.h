@@ -27,7 +27,7 @@ public:
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
      */
-    Actor(float xPos, float yPos) : Object(xPos, yPos), rotation(0.0) {
+    Actor(float xPos, float yPos) : Object(xPos, yPos) {
         actors.insert(this);
     }
     /**
@@ -38,13 +38,13 @@ public:
     }
 
     /**
-     * Rotate the actor by a fixed amount
+     * Rotate the actor as well as the actor's hitbox by a fixed amount
      * @note Input is in radians
      * @param   radians     The amount, in radians, to rotate the hit box by
      */
-    void rotate(float radians) {
+    virtual void rotate(float radians) {
+        Object::rotate(radians);
         hitbox->rotate(radians);
-        rotation+= radians;
     }
 
     /**
@@ -55,7 +55,6 @@ public:
 
 protected:
     HitBox *hitbox;     ///< Hit box around the actor
-    float rotation;     ///< Rotation angle of the actor
 
 private:
     static std::unordered_set<Actor*> actors;   ///< Set of all spawned actors

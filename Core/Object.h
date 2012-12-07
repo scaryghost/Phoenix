@@ -44,9 +44,17 @@ public:
      * @param   xOffset     Horizontal offset to move the object
      * @param   yOffset     Vertical offset to move the object
      */
-    void translate(float xOffset, float yOffset) {
+    virtual void translate(float xOffset, float yOffset) {
         xPos+= xOffset;
         yPos+= yOffset;
+    }
+    /**
+     * Rotate the object by a fixed amount
+     * @note Input is in radians
+     * @param   radians     The amount, in radians, to rotate the hit box by
+     */
+    virtual void rotate(float radians) {
+        rotation+= radians;
     }
 
     /**
@@ -85,6 +93,7 @@ protected:
     bool destroy;       ///< True if the object should be destroyed
     float xPos;         ///< X coordinate of the object
     float yPos;         ///< Y coordinate of the object
+    float rotation;     ///< Rotation angle of the object
 
 private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;    ///< Timer function information, storing period, accumulated timer, and lambda callback
