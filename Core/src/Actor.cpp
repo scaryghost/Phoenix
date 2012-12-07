@@ -5,17 +5,14 @@
 namespace etsai {
 namespace phoenix {
 
-using std::unordered_set;
-
-unordered_set<Actor*> Actor::actors;
+std::unordered_set<Actor*> Actor::actors;
 
 void Actor::checkCollisions(Actor* actor) {
-    throw std::runtime_error("Not yet implemented!");
-}
-
-void Actor::drawActors() {
     for(auto it= actors.begin(); it != actors.end(); it++) {
-        (*it)->draw();
+        if (actor != *it && actor->hitbox->collide((*it)->hitbox)) {
+            actor->touch(*it);
+            (*it)->touch(actor);
+        }
     }
 }
 

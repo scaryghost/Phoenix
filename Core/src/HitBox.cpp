@@ -15,11 +15,11 @@ bool HitBox::collide(HitBox const *box) const {
     bool collided= false;
 
     for(auto it= box->boundaryOffsets.begin(); !collided && it != box->boundaryOffsets.end(); it++) {
-        collided= inside(get<0>(*it), get<1>(*it));
+        collided= inside(get<0>(*it) + box->xPos, get<1>(*it) + box->yPos);
     }
     if (!collided) {
         for(auto it= boundaryOffsets.begin(); !collided && it != boundaryOffsets.end(); it++) {
-            collided= box->inside(get<0>(*it), get<1>(*it));
+            collided= box->inside(get<0>(*it) + xPos, get<1>(*it) + yPos);
         }
     }
     return collided;

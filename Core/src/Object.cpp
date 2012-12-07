@@ -12,6 +12,7 @@ using std::string;
 using std::unordered_set;
 
 unordered_set<Object*> Object::tickableObjects;
+unordered_set<Object*> Object::objects;
 
 void Object::tickObjects(double delta) {
     unordered_set<Object*> toDestroy;
@@ -28,13 +29,21 @@ void Object::tickObjects(double delta) {
     }
 }
 
+void Object::drawObjects() {
+    for(auto it= objects.begin(); it != objects.end(); it++) {
+        (*it)->draw();
+    }
+}
+
 Object::Object(float xPos, float yPos) : 
 destroy(false),xPos(xPos),yPos(yPos) {
     enableTick();
+    objects.insert(this);
 }
 
 Object::~Object() {
     disableTick();
+    objects.erase(this);
 }
 
 void Object::addTimer(double period, std::string name, TimerFunc callBack) {

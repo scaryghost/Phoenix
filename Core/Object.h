@@ -21,6 +21,8 @@ public:
      * @param   delta   Elapsed time since last tick
      */
     static void tickObjects(double delta);
+    /** Draws all spawned objects */
+    static void drawObjects();
 
     /** Lambda type for timer function callbacks */
     typedef std::function<void ()> TimerFunc;
@@ -74,6 +76,7 @@ private:
     std::unordered_map<std::string, TimerInfo> timers;
 
     static std::unordered_set<Object*> tickableObjects;
+    static std::unordered_set<Object*> objects;
 };
 
 }

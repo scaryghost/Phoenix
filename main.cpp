@@ -1,6 +1,6 @@
 #include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/HitBox.h"
-#include "Phoenix/Core/ACtor.h"
+#include "Phoenix/Core/Actor.h"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -9,6 +9,7 @@
 
 #define PI 3.141592653589793238462643383279502
 
+using std::cout;
 using std::cerr;
 using std::endl;
 using std::get;
@@ -27,23 +28,39 @@ public:
     }
 };
 
+class AllegroActor : public Actor {
+public:
+    AllegroActor(float xPos, float yPos) : Actor(xPos, yPos), count(0) {
+        hitbox= new AllegroHitBox(xPos, yPos);
+        hitbox->addBoundaryPoint(-50, -50);
+        hitbox->addBoundaryPoint(-50, 50);
+        hitbox->addBoundaryPoint(50, 50);
+        hitbox->addBoundaryPoint(50, -50);
+    }
+    virtual ~AllegroActor() {
+        delete hitbox;
+    }
+
+    virtual void draw() { }
+
+    virtual void touch(Actor *actor) { al_draw_filled_circle(xPos, yPos, 10.0, al_map_rgb(255, 0, 0)); count++;}
+
+    void rotate(float radians) const {
+        hitbox->rotate(radians);
+    }
+private:
+    int count;
+};
+
 int main(int argc, char **argv) {
     int width= atoi(argv[1]), height= atoi(argv[2]);
     float x= atof(argv[3]), y= atof(argv[4]);
-    HitBox *test= new AllegroHitBox(100, 100), *test2= new AllegroHitBox(225, 100);
+    AllegroActor *test= new AllegroActor(100, 100), *test2= new AllegroActor(225, 100);
 
-    test->addBoundaryPoint(-50, -50);
-    test->addBoundaryPoint(-50, 50);
-    test->addBoundaryPoint(50, 50);
-    test->addBoundaryPoint(50, -50);
     test->addTimer(1.0/30.0, "rotate", [&test]() -> void {
         test->rotate(PI/180.0);
     });
-
-    test2->addBoundaryPoint(-50, -50);
-    test2->addBoundaryPoint(-50, 50);
-    test2->addBoundaryPoint(50, 50);
-    test2->addBoundaryPoint(50, -50);
+    
     test2->addTimer(1.0/30.0, "rotate", [&test2]() -> void {
         test2->rotate(-PI/180.0);
     });
@@ -83,8 +100,8 @@ int main(int argc, char **argv) {
                 break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
-        Actor::drawActors();
-        al_draw_filled_circle(x, y, 2.0, al_map_rgb(255, 0, 0));
+        Object::drawObjects();
+        Actor::checkCollisions(test);
         al_flip_display();
     } while(ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 

@@ -1,6 +1,7 @@
 #ifndef ETSAI_PHOENIX_CORE_ACTOR
 #define ETSAI_PHOENIX_CORE_ACTOR
 
+#include "Phoenix/Core/HitBox.h"
 #include "Phoenix/Core/Object.h"
 
 #include <unordered_set>
@@ -20,8 +21,6 @@ public:
      * @param   actor   Actor to check
      */
     static void checkCollisions(Actor* actor);
-    /** Draws all spawned actors */
-    static void drawActors();
 
     /**
      * Creates an actor at the specific location
@@ -40,6 +39,9 @@ public:
      * @param   actor   The actor that touched this actor
      */
     virtual void touch(Actor* actor)= 0;
+
+protected:
+    HitBox *hitbox;
 
 private:
     static std::unordered_set<Actor*> actors;
