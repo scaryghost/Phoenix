@@ -14,6 +14,7 @@ public:
     HitBox(float xPos, float yPos) : Actor(xPos, yPos) { }
 
     bool collide(HitBox const *box) const;
+    bool inside(float x, float y) const;
 
     void rotate(float radians);
     void translate(float xOffset, float yOffset);
