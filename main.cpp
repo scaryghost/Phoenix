@@ -44,10 +44,6 @@ public:
     virtual void draw() { }
 
     virtual void touch(Actor *actor) { al_draw_filled_circle(xPos, yPos, 10.0, al_map_rgb(255, 0, 0)); count++;}
-
-    void rotate(float radians) const {
-        hitbox->rotate(radians);
-    }
 private:
     int count;
 };

@@ -53,11 +53,6 @@ void HitBox::rotate(float radians) {
     }
 }
 
-void HitBox::translate(float xOffset, float yOffset) {
-    moveXAxis(xOffset);
-    moveYAxis(yOffset);
-}
-
 void HitBox::addBoundaryPoint(float xOffset, float yOffset) {
     boundaryOffsets.push_back(make_tuple(xOffset, yOffset));
 }

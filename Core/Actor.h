@@ -27,11 +27,16 @@ public:
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
      */
-    Actor(float xPos, float yPos) : Object(xPos, yPos) {
+    Actor(float xPos, float yPos) : Object(xPos, yPos), angle(0.0) {
         actors.insert(this);
     }
     virtual ~Actor() {
         actors.erase(this);
+    }
+
+    void rotate(float radians) {
+        hitbox->rotate(radians);
+        angle+= radians;
     }
 
     /**
@@ -42,6 +47,7 @@ public:
 
 protected:
     HitBox *hitbox;
+    float angle;
 
 private:
     static std::unordered_set<Actor*> actors;

@@ -17,7 +17,6 @@ public:
     bool inside(float x, float y) const;
 
     void rotate(float radians);
-    void translate(float xOffset, float yOffset);
     void addBoundaryPoint(float xOffset, float yOffset);
     void removeLastPoint();
 

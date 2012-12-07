@@ -31,8 +31,10 @@ public:
     virtual ~Object();
 
     
-    void moveXAxis(float offset) { xPos += offset; }
-    void moveYAxis(float offset) { yPos += offset; }
+    void translate(float xOffset, float yOffset) {
+        xPos+= xOffset;
+        yPos+= yOffset;
+    }
 
     /**
      * Add custom timer callback
