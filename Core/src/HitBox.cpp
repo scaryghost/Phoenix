@@ -12,14 +12,24 @@ using std::get;
 using std::make_tuple;
 
 bool HitBox::collide(HitBox const *box) const {
-    throw std::runtime_error("Not yet implemented!");
+    bool collided= false;
+
+    for(auto it= box->boundaryOffsets.begin(); !collided && it != box->boundaryOffsets.end(); it++) {
+        collided= inside(get<0>(*it), get<1>(*it));
+    }
+    if (!collided) {
+        for(auto it= boundaryOffsets.begin(); !collided && it != boundaryOffsets.end(); it++) {
+            collided= box->inside(get<0>(*it), get<1>(*it));
+        }
+    }
+    return collided;
 }
 
 bool HitBox::inside(float x, float y) const {
-    size_t i, j= boundaryOffsets.size() - 2;
+    size_t i, j= boundaryOffsets.size() - 1;
     bool oddNodes= false;
 
-    for(i= 0; i < boundaryOffsets.size() - 1; i++) {
+    for(i= 0; i < boundaryOffsets.size(); i++) {
         float xi, xj, yi, yj;
 
         xi= get<0>(boundaryOffsets[i]) + xPos;

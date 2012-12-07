@@ -1,5 +1,6 @@
 #include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/HitBox.h"
+#include "Phoenix/Core/ACtor.h"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -18,27 +19,35 @@ public:
     AllegroHitBox(float xPos, float yPos) : HitBox(xPos, yPos) { }
 
     virtual void draw() {
-        for(auto it= boundaryOffsets.begin(); it != boundaryOffsets.end() - 1; it++) {
-            al_draw_line(xPos + get<0>(*it), yPos + get<1>(*it), xPos + get<0>(*(it+1)), yPos + get<1>(*(it+1)), al_map_rgb(0, 255, 0), 2.0);
+        auto prev= boundaryOffsets.end() - 1;
+        for(auto it= boundaryOffsets.begin(); it != boundaryOffsets.end(); it++) {
+            al_draw_line(xPos + get<0>(*prev), yPos + get<1>(*prev), xPos + get<0>(*it), yPos + get<1>(*it), al_map_rgb(0, 255, 0), 2.0);
+            prev= it;
         }
-    }
-
-    virtual void touch(Actor* actor) {
-        cerr << "AllegroHitBox - touch" << endl;
     }
 };
 
 int main(int argc, char **argv) {
     int width= atoi(argv[1]), height= atoi(argv[2]);
     float x= atof(argv[3]), y= atof(argv[4]);
-    HitBox *test= new AllegroHitBox(100, 100);
+    HitBox *test= new AllegroHitBox(100, 100), *test2= new AllegroHitBox(225, 100);
 
     test->addBoundaryPoint(-50, -50);
     test->addBoundaryPoint(-50, 50);
     test->addBoundaryPoint(50, 50);
     test->addBoundaryPoint(50, -50);
-    test->addBoundaryPoint(-50, -50);
-    test->rotate(45/180.0 * PI);
+    test->addTimer(1.0/30.0, "rotate", [&test]() -> void {
+        test->rotate(PI/180.0);
+    });
+
+    test2->addBoundaryPoint(-50, -50);
+    test2->addBoundaryPoint(-50, 50);
+    test2->addBoundaryPoint(50, 50);
+    test2->addBoundaryPoint(50, -50);
+    test2->addTimer(1.0/30.0, "rotate", [&test2]() -> void {
+        test2->rotate(-PI/180.0);
+    });
+
     if(!al_init()) {
         cerr << "failed to initialize allegro!" << endl;
         return -1;
@@ -58,7 +67,6 @@ int main(int argc, char **argv) {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    cerr << test->inside(x, y) << endl;
     do {
         al_wait_for_event(event_queue, &ev);
 

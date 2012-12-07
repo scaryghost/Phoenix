@@ -25,8 +25,12 @@ public:
     /** Lambda type for timer function callbacks */
     typedef std::function<void ()> TimerFunc;
 
-    Object();
+    Object(float xPos, float yPos);
     virtual ~Object();
+
+    
+    void moveXAxis(float offset) { xPos += offset; }
+    void moveYAxis(float offset) { yPos += offset; }
 
     /**
      * Add custom timer callback
@@ -56,8 +60,14 @@ public:
      */
     virtual void tick(double delta);
 
+    /**
+     * Draw this object on screen
+     */
+    virtual void draw()= 0;
 protected:
     bool destroy;
+    float xPos;
+    float yPos;
 
 private:
     typedef std::tuple<double, double, TimerFunc> TimerInfo;

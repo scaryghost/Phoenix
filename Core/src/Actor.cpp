@@ -7,10 +7,9 @@ namespace phoenix {
 
 using std::unordered_set;
 
-unordered_set<Actor*> Actor::activeActors;
 unordered_set<Actor*> Actor::actors;
 
-void Actor::checkCollitions(Actor* actor) {
+void Actor::checkCollisions(Actor* actor) {
     throw std::runtime_error("Not yet implemented!");
 }
 

@@ -28,8 +28,8 @@ void Object::tickObjects(double delta) {
     }
 }
 
-Object::Object() : 
-destroy(false) {
+Object::Object(float xPos, float yPos) : 
+destroy(false),xPos(xPos),yPos(yPos) {
     enableTick();
 }
 

@@ -1,7 +1,7 @@
 #ifndef ETSAI_PHOENIX_CORE_HITBOX
 #define ETSAI_PHOENIX_CORE_HITBOX
 
-#include "Phoenix/Core/Actor.h"
+#include "Phoenix/Core/Object.h"
 
 #include <tuple>
 #include <vector>
@@ -9,9 +9,9 @@
 namespace etsai {
 namespace phoenix {
 
-class HitBox : public Actor {
+class HitBox : public Object {
 public:
-    HitBox(float xPos, float yPos) : Actor(xPos, yPos) { }
+    HitBox(float xPos, float yPos) : Object(xPos, yPos) { }
 
     bool collide(HitBox const *box) const;
     bool inside(float x, float y) const;
