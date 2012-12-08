@@ -1,0 +1,45 @@
+#include "Phoenix/Game/HumanPawn.h"
+
+#include <cmath>
+
+namespace etsai {
+namespace phoenix {
+
+using std::max;
+
+/*
+float meter;
+    float maxMeter;
+    float meterGainScale;
+    float meterUsageRate;
+    unsigned int cash;
+    bool abilityActive;
+    */
+HumanPawn::HumanPawn(float xPos, float yPos) : Pawn(xPos, yPos), 
+meter(0), maxMeter(100), meterGainScale(1.0), meterUsageRate(10), cash(0), abilityActive(false) {
+}
+
+void HumanPawn::gainMeter(float amount) {
+    meter+= max<float>(amount * meterGainScale, maxMeter);
+}
+
+void HumanPawn::addCash(unsigned int amount) {
+    cash+= amount;
+}
+
+void HumanPawn::activateAbility() {
+    if (meter >= maxMeter) {
+        abilityActive= true;
+    }
+}
+
+void HumanPawn::tick(double delta) {
+    Pawn::tick(delta);
+    if (abilityActive) {
+        meter-= max<float>(meterUsageRate * delta, 0.0);
+        abilityActive= meter > 0.0;
+    }
+}
+
+}
+}

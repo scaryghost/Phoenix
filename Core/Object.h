@@ -76,7 +76,8 @@ public:
     /**
      * Function that is called before every frame.  Accumulated time for timers 
      * are also updated here
-     * @param   delta   How much time has elapsed since the previous call
+     * @note The tick function's parameter is in seconds
+     * @param   delta   How much time, in seconds, has elapsed since the previous call
      */
     virtual void tick(double delta);
 
