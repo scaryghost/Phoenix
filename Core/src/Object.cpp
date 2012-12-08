@@ -46,6 +46,15 @@ Object::~Object() {
     objects.erase(this);
 }
 
+void Object::translate(float xOffset, float yOffset) {
+    xPos+= xOffset;
+    yPos+= yOffset;
+}
+
+void Object::rotate(float radians) {
+    rotation+= radians;
+}
+
 void Object::addTimer(double period, std::string name, TimerFunc callBack) {
     auto info= make_tuple(period, 0.0, callBack);
     timers.insert(make_pair(name, info));

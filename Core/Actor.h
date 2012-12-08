@@ -27,25 +27,18 @@ public:
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
      */
-    Actor(float xPos, float yPos) : Object(xPos, yPos) {
-        actors.insert(this);
-    }
+    Actor(float xPos, float yPos);
     /**
      * Class destructor
      */
-    virtual ~Actor() {
-        actors.erase(this);
-    }
+    virtual ~Actor();
 
     /**
      * Rotate the actor as well as the actor's hitbox by a fixed amount
      * @note Input is in radians
      * @param   radians     The amount, in radians, to rotate the hit box by
      */
-    virtual void rotate(float radians) {
-        Object::rotate(radians);
-        hitbox->rotate(radians);
-    }
+    virtual void rotate(float radians);
 
     /**
      * Called when another actor has touched this actor

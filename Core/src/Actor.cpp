@@ -16,5 +16,18 @@ void Actor::checkCollisions(Actor* actor) {
     }
 }
 
+Actor::Actor(float xPos, float yPos) : Object(xPos, yPos) {
+    actors.insert(this);
+}
+
+Actor::~Actor() {
+    actors.erase(this);
+}
+
+void Actor::rotate(float radians) {
+    Object::rotate(radians);
+    hitbox->rotate(radians);
+}
+
 }
 }

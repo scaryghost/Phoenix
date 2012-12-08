@@ -11,7 +11,7 @@ namespace etsai {
 namespace phoenix {
 
 /**
- * Base class that all Phoenix related classes derive from
+ * Base class that all game objects derive from
  * @author etsai
  */
 class Object {
@@ -44,18 +44,13 @@ public:
      * @param   xOffset     Horizontal offset to move the object
      * @param   yOffset     Vertical offset to move the object
      */
-    virtual void translate(float xOffset, float yOffset) {
-        xPos+= xOffset;
-        yPos+= yOffset;
-    }
+    virtual void translate(float xOffset, float yOffset);
     /**
      * Rotate the object by a fixed amount
      * @note Input is in radians
      * @param   radians     The amount, in radians, to rotate the hit box by
      */
-    virtual void rotate(float radians) {
-        rotation+= radians;
-    }
+    virtual void rotate(float radians);
 
     /**
      * Add custom timer callback
