@@ -1,5 +1,5 @@
-#ifndef ETSAI_PHOENIX_CORE_PAWN
-#define ETSAI_PHOENIX_CORE_PAWN
+#ifndef ETSAI_PHOENIX_GAME_PAWN
+#define ETSAI_PHOENIX_GAME_PAWN
 
 #include <cmath>
 #include "Phoenix/Core/Actor.h"
