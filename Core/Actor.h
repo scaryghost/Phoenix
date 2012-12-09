@@ -34,9 +34,15 @@ public:
     virtual ~Actor();
 
     /**
+     * Move the object and hitbox with the specified horizontal and vertical offsets
+     * @param   xOffset     Horizontal offset to move the hitbox and object
+     * @param   yOffset     Vertical offset to move the hitbox and object
+     */
+    virtual void translate(float xOffset, float yOffset);
+    /**
      * Rotate the actor as well as the actor's hitbox by a fixed amount
      * @note Input is in radians
-     * @param   radians     The amount, in radians, to rotate the hit box by
+     * @param   radians     The amount, in radians, to rotate the hit box and object by
      */
     virtual void rotate(float radians);
 

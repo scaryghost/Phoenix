@@ -41,7 +41,7 @@ public:
      * @note Input is in radians
      * @param   radians     The amount, in radians, to rotate the hit box by
      */
-    void rotate(float radians);
+    virtual void rotate(float radians);
     /**
      * Added another point to the boundary
      * @param   xOffset     Horizontal offset from the hit boxes reference point
