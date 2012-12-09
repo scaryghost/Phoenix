@@ -29,5 +29,10 @@ void Actor::rotate(float radians) {
     hitbox->rotate(radians);
 }
 
+void Actor::translate(float xOffset, float yOffset) {
+    Object::translate(xOffset, yOffset);
+    hitbox->translate(xOffset, yOffset);
+}
+
 }
 }
