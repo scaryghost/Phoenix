@@ -28,6 +28,10 @@ public:
     typedef std::function<void ()> TimerFunc;
 
     /**
+     * Creates a blank object
+     */
+    Object();
+    /**
      * Create an object at the given point (xPos, yPos).  Objects by default will have 
      * their tick function will be called
      * @param   xPos    X coordinate of the object
