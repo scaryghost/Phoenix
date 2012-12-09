@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 #define PI 3.141592653589793238462643383279502
 
@@ -18,6 +19,7 @@ using std::cerr;
 using std::endl;
 using std::get;
 using std::string;
+using std::unordered_set;
 using namespace etsai::phoenix;
 
 class A5HumanPawnImpl : public A5HumanPawn {
@@ -49,11 +51,38 @@ int main(int argc, char **argv) {
     ALLEGRO_EVENT ev;
 
     A5HumanPawnImpl *test= new A5HumanPawnImpl(100, 100);
+    unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
+
+    auto keyCheck= [&downKeys, &test]() -> void {
+        if (downKeys.count(ALLEGRO_KEY_W)) {
+            if (downKeys.count(ALLEGRO_KEY_A)) {
+                test->setDirection(HumanPawn::Direction::UP_LEFT);
+            } else if (downKeys.count(ALLEGRO_KEY_D)) {
+                test->setDirection(HumanPawn::Direction::UP_RIGHT);
+            } else {
+                test->setDirection(HumanPawn::Direction::UP);
+            }
+        } else if (downKeys.count(ALLEGRO_KEY_S)) {
+            if (downKeys.count(ALLEGRO_KEY_A)) {
+                test->setDirection(HumanPawn::Direction::DOWN_LEFT);
+            } else if (downKeys.count(ALLEGRO_KEY_D)) {
+                test->setDirection(HumanPawn::Direction::DOWN_RIGHT);
+            } else {
+                test->setDirection(HumanPawn::Direction::DOWN);
+            }
+        } else if (downKeys.count(ALLEGRO_KEY_A)) {
+            test->setDirection(HumanPawn::Direction::LEFT);
+        } else if (downKeys.count(ALLEGRO_KEY_D)) {
+            test->setDirection(HumanPawn::Direction::RIGHT);
+        } else {
+            test->setDirection(HumanPawn::Direction::NEUTRAL);
+        }
+    };
 
     do {
         al_wait_for_event(event_queue, &ev);
@@ -62,16 +91,13 @@ int main(int argc, char **argv) {
             case ALLEGRO_EVENT_TIMER:
                 Object::tickObjects(1.0/30.0);
                 break;
-            case ALLEGRO_EVENT_KEY_CHAR:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_W) {
-                    test->translate(0, -1);
-                } else if (ev.keyboard.keycode == ALLEGRO_KEY_S) {
-                    test->translate(0, 1);
-                } else if (ev.keyboard.keycode == ALLEGRO_KEY_A) {
-                    test->translate(-1, 0);
-                } else if (ev.keyboard.keycode == ALLEGRO_KEY_D) {
-                    test->translate(1, 0);
-                }
+            case ALLEGRO_EVENT_KEY_DOWN:
+                downKeys.insert(ev.keyboard.keycode);
+                keyCheck();
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                downKeys.erase(ev.keyboard.keycode);
+                keyCheck();
                 break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
