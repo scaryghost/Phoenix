@@ -7,14 +7,6 @@ namespace phoenix {
 
 using std::max;
 
-/*
-float meter;
-    float maxMeter;
-    float meterGainScale;
-    float meterUsageRate;
-    unsigned int cash;
-    bool abilityActive;
-    */
 HumanPawn::HumanPawn(float xPos, float yPos) : Pawn(xPos, yPos), 
     meter(0), maxMeter(100), meterGainScale(1.0), meterUsageRate(10), cash(0), abilityActive(false),dir(Direction::NEUTRAL) {
 }
