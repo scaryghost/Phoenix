@@ -16,13 +16,6 @@ namespace phoenix {
 class Actor : public Object {
 public:
     /**
-     * Checks if the actor has collided with any spawned actors.  Actors that have collided with 
-     * each other will have their touch functions called.
-     * @param   actor   Actor to check
-     */
-    static void checkCollisions(Actor* actor);
-
-    /**
      * Creates an actor at the specific location
      * @param   xPos    X coordinate of the Actor
      * @param   yPos    Y coordinate of the Actor
@@ -32,6 +25,13 @@ public:
      * Class destructor
      */
     virtual ~Actor();
+
+    /**
+     * Checks if the actor has collided with any spawned actors.  Actors that have collided with 
+     * each other will have their touch functions called.
+     * @param   actor   Actor to check
+     */
+    void checkCollisions();
 
     /**
      * Move the object and hitbox with the specified horizontal and vertical offsets
