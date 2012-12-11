@@ -4,7 +4,7 @@
 #include "Phoenix/Game/Pawn.h"
 #include "Phoenix/Game/Weapon.h"
 
-#include <vector>
+#include <map>
 
 namespace etsai {
 namespace phoenix {
@@ -38,6 +38,29 @@ public:
     HumanPawn(float xPos, float yPos);
 
     /**
+     * Trigger the current weapon to fire
+     */
+    void startFiring();
+    /**
+     * Stop the current weapon from firing
+     */
+    void stopFiring();
+    /**
+     * Switch the ship's weapon to the one corresponding to the index
+     * @param   weaponIndex     Index of the weapon to switch to
+     */
+    void switchToWeapon(int weaponIndex);
+    /**
+     * Switch to the next weapon in the inventory.  The index will loop back to the 
+     * first weapon when exhausting the list.
+     */
+    void nextWeapon();
+    /**
+     * Switch to the previous weapon in the inventory.  The index will loop to the 
+     * last weapon after reaching the first one
+     */
+    void prevWeapon();
+    /**
      * Add amount to the meter
      * @param   amount  Amount to add to the meter
      */
@@ -59,14 +82,16 @@ public:
     virtual void tick(double delta);
 
 protected:
-    float meter;                        ///< Current meter of the ship
-    float maxMeter;                     ///< Maximum amount of meter
-    float meterGainScale;               ///< How much a meter gain should scale by
-    float meterUsageRate;               ///< How fast to consume the meter when the special ability is active
-    unsigned int cash;                  ///< Amount of cash the ship has
-    bool abilityActive;                 ///< True if the ship's special ability is active
-    Direction dir;                      ///< Current movement direction of the ship
-    std::vector<Weapon*> weapons;       ///< Weapons belonging to the ship
+    float meter;                                ///< Current meter of the ship
+    float maxMeter;                             ///< Maximum amount of meter
+    float meterGainScale;                       ///< How much a meter gain should scale by
+    float meterUsageRate;                       ///< How fast to consume the meter when the special ability is active
+    unsigned int cash;                          ///< Amount of cash the ship has
+    bool abilityActive;                         ///< True if the ship's special ability is active
+    Direction dir;                              ///< Current movement direction of the ship
+    std::map<int, Weapon*> weapons;             ///< Weapons belonging to the ship
+    std::map<int, Weapon*>::iterator currentWeapon;                          ///< Index of the current weapon the ship is using
+    bool isFiring;
 };
 
 }   //namespace phoenix

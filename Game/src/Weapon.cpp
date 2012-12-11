@@ -18,6 +18,10 @@ void Weapon::fire() {
     }
 }
 
+void Weapon::setWeaponIndex(int index) {
+    this->index= index;
+}
+
 void Weapon::refillAmmo(int amount) {
     ammo= max<float>(maxAmmo, ammo + amount);
 }
@@ -36,6 +40,10 @@ int Weapon::getAmmoCount() const {
 
 int Weapon::getMaxAmmo() const {
     return maxAmmo;
+}
+
+int Weapon::getWeaponIndex() const {
+    return index;
 }
 
 void Weapon::tick(double delta) {

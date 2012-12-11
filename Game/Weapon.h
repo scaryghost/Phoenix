@@ -3,6 +3,8 @@
 
 #include "Phoenix/Core/Object.h"
 
+#include <set>
+
 namespace etsai {
 namespace phoenix {
 
@@ -26,6 +28,11 @@ public:
      * @param   amount  Amount of ammo to restore
      */
     void refillAmmo(int amount);
+    /**
+     * Set the weapon index
+     * @param   index   Index of the weapon
+     */
+    void setWeaponIndex(int index);
 
     /**
      * Checks if the weapon is able to fire at the given moment.  The check is based on the ammo 
@@ -48,6 +55,11 @@ public:
      * @return Maximum amount of ammo
      */
     int getMaxAmmo() const;
+    /**
+     * Get the index of the weapon
+     * @return weapon index
+     */
+    int getWeaponIndex() const;
 
     virtual void tick(double delta);
     /**
@@ -58,7 +70,9 @@ public:
      * Reduce ammo count of the current weapon.  This function is only called after a successful weapon fire
      */
     virtual void consumeAmmo()= 0;
-private:
+
+protected:
+    int index;          ///< Index the weapon belongs to
     int ammo;           ///< Current ammo count of the weapon
     int maxAmmo;        ///< Maximum ammo the weapon can store
     float fireRate;     ///< How often the weapon can fire (sec per shot)

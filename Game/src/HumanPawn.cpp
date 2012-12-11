@@ -11,6 +11,33 @@ HumanPawn::HumanPawn(float xPos, float yPos) : Pawn(xPos, yPos),
     meter(0), maxMeter(100), meterGainScale(1.0), meterUsageRate(10), cash(0), abilityActive(false),dir(Direction::NEUTRAL) {
 }
 
+void HumanPawn::startFiring() {
+    isFiring= true;
+}
+
+void HumanPawn::stopFiring() {
+    isFiring= false;
+}
+
+
+void HumanPawn::switchToWeapon(int weaponIndex) {
+    currentWeapon= weapons.find(weaponIndex);
+}
+
+void HumanPawn::nextWeapon() {
+    currentWeapon++;
+    if (currentWeapon == weapons.end()) {
+        currentWeapon= weapons.begin();
+    }
+}
+
+void HumanPawn::prevWeapon() {
+    currentWeapon--;
+    if (currentWeapon == weapons.begin()) {
+        currentWeapon= weapons.end();
+    }
+}
+
 void HumanPawn::gainMeter(float amount) {
     meter+= max<float>(amount * meterGainScale, maxMeter);
 }
@@ -32,6 +59,9 @@ void HumanPawn::setDirection(Direction dir) {
 void HumanPawn::tick(double delta) {
     float xDelta(0), yDelta(0);
     Pawn::tick(delta);
+    if (isFiring) {
+        currentWeapon->second->fire();
+    }
     if (abilityActive) {
         meter-= max<float>(meterUsageRate * delta, 0.0);
         abilityActive= meter > 0.0;

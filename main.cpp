@@ -3,11 +3,13 @@
 #include "Phoenix/Core/HitBox.h"
 #include "Phoenix/Core/Actor.h"
 #include "Phoenix/Game/HumanPawn.h"
+#include "Phoenix/Game/Weapon.h"
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_primitives.h"
 
+#include <ctime>
 #include <iostream>
 #include <string>
 #include <unordered_set>
@@ -18,14 +20,43 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::get;
+using std::make_pair;
 using std::string;
 using std::unordered_set;
 using namespace etsai::phoenix;
 
+class WeaponImpl : public Weapon {
+public:
+    WeaponImpl() : Weapon() {
+        ammo= 100;
+        maxAmmo= 100;
+        fireRate= 1;
+        cooldown= 0.0;
+        index= 0;
+    }
+
+    virtual void doFireEffect() {
+        cerr << "Fire!" << " (" << ammo << ") (" << clock() << ")" << endl;
+    }
+    virtual void consumeAmmo() {
+        ammo--;
+    }
+    virtual void draw() {
+    }
+};
+
 class A5HumanPawnImpl : public A5HumanPawn {
 public:
-    A5HumanPawnImpl(float xPos, float yPos) : A5HumanPawn(xPos, yPos) { }
+    A5HumanPawnImpl(float xPos, float yPos) : A5HumanPawn(xPos, yPos) {
+        Weapon* defaultWeapon= new WeaponImpl();
+        weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
+        currentWeapon= weapons.begin();
+    }
     virtual void touch(Actor *actor) { al_draw_filled_circle(xPos, yPos, 10.0, al_map_rgb(255, 0, 0));}
+    virtual void tick(double delta) {
+        A5HumanPawn::tick(delta);
+        rotate(PI/180.0);
+    }
 };
 
 int main(int argc, char **argv) {
@@ -38,6 +69,10 @@ int main(int argc, char **argv) {
     }
     if(!al_install_keyboard()) {
         cerr << "failed to initialize the keyboard!" << endl;
+        return -1;
+    }
+    if(!al_install_mouse()) {
+        cerr << "failed to initialize the mouse!" << endl;
         return -1;
     }
     if(!al_init_image_addon()) {
@@ -56,6 +91,7 @@ int main(int argc, char **argv) {
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_mouse_event_source());
     al_start_timer(timer);
 
     auto keyCheck= [&downKeys, &test]() -> void {
@@ -99,10 +135,20 @@ int main(int argc, char **argv) {
                 downKeys.erase(ev.keyboard.keycode);
                 keyCheck();
                 break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                if ((ev.mouse.button & 0x1) == 0x1) {
+                    test->startFiring();
+                }
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                if ((ev.mouse.button & 0x1) == 0x1) {
+                    test->stopFiring();
+                }
+                break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
         Object::drawObjects();
-        Actor::checkCollisions(test);
+        test->checkCollisions();
         al_flip_display();
     } while(ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
