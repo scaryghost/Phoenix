@@ -1,4 +1,5 @@
 #include "Phoenix/Allegro5/A5HumanPawn.h"
+#include "Phoenix/Allegro5/A5SingleProj.h"
 #include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/HitBox.h"
 #include "Phoenix/Core/Actor.h"
@@ -86,6 +87,7 @@ int main(int argc, char **argv) {
     ALLEGRO_EVENT ev;
 
     A5HumanPawnImpl *test= new A5HumanPawnImpl(100, 100);
+    A5SingleProj *proj= new A5SingleProj(640, 360, PI/2);
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));

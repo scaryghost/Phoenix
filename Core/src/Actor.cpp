@@ -13,6 +13,7 @@ Actor::Actor(float xPos, float yPos) : Object(xPos, yPos) {
 
 Actor::~Actor() {
     actors.erase(this);
+    delete hitbox;
 }
 
 void Actor::rotate(float radians) {
