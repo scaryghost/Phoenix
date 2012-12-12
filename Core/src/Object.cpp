@@ -52,6 +52,18 @@ Object::~Object() {
     objects.erase(this);
 }
 
+float Object::getXPos() const {
+    return xPos;
+}
+
+float Object::getYPos() const {
+    return yPos;
+}
+
+float Object::getRotation() const {
+    return rotation;
+}
+
 void Object::translate(float xOffset, float yOffset) {
     xPos+= xOffset;
     yPos+= yOffset;

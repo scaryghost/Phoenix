@@ -2,6 +2,7 @@
 #define ETSAI_PHOENIX_GAME_WEAPON
 
 #include "Phoenix/Core/Object.h"
+#include "Phoenix/Game/Pawn.h"
 
 namespace etsai {
 namespace phoenix {
@@ -13,9 +14,10 @@ namespace phoenix {
 class Weapon : public Object {
 public:
     /**
-     * Constructs a weapon.
+     * Constructs a weapon that belongs to a pawn
+     * @param   owner   The owner of the weapon
      */
-    Weapon();
+    Weapon(Pawn* owner);
 
     /**
      * Fire the weapon.  If the weapon cannot fire, the function will immediately return
@@ -70,6 +72,7 @@ public:
     virtual void consumeAmmo()= 0;
 
 protected:
+    Pawn* owner;        ///< Pawn that owns the weapon
     int index;          ///< Index the weapon belongs to
     int ammo;           ///< Current ammo count of the weapon
     int maxAmmo;        ///< Maximum ammo the weapon can store

@@ -18,7 +18,7 @@ A5HumanPawn::A5HumanPawn(float xPos, float yPos) : HumanPawn(xPos, yPos) {
     hitbox->addBoundaryPoint(imageHalfW, imageHalfH);
     hitbox->addBoundaryPoint(imageHalfW, -imageHalfH);
 
-    Weapon* defaultWeapon= new A5Single();
+    Weapon* defaultWeapon= new A5Single(this);
     weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
     currentWeapon= weapons.begin();
 }

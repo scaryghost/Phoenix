@@ -42,7 +42,22 @@ public:
      * Class destructor
      */
     virtual ~Object();
-
+    
+    /**
+     * Get the X coordinate of the object position
+     * @return X coordinate
+     */
+    float getXPos() const;
+    /**
+     * Get the Y coordinate of the object position
+     * @return Y coordinate
+     */
+    float getYPos() const;
+    /**
+     * Get the rotation angle of the object
+     * @return Rotation angle
+     */
+    float getRotation() const;
     /**
      * Move the object with the specified horizontal and vertical offsets
      * @param   xOffset     Horizontal offset to move the object

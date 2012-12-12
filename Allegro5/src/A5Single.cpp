@@ -6,11 +6,11 @@
 namespace etsai {
 namespace phoenix {
 
-A5Single::A5Single() : Single() {
+A5Single::A5Single(Pawn *owner) : Single(owner) {
 }
 
 void A5Single::doFireEffect() {
-    new A5SingleProj(640, 360, PI/6);
+    new A5SingleProj(owner->getXPos(), owner->getYPos(), owner->getRotation());
 }
 
 }

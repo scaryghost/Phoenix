@@ -7,7 +7,7 @@ namespace phoenix {
 
 using std::max;
 
-Weapon::Weapon() {
+Weapon::Weapon(Pawn* owner) : owner(owner) {
 }
 
 void Weapon::fire() {
