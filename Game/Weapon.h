@@ -3,8 +3,6 @@
 
 #include "Phoenix/Core/Object.h"
 
-#include <set>
-
 namespace etsai {
 namespace phoenix {
 

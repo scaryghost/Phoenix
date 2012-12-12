@@ -35,6 +35,7 @@ public:
      * @param   damage  Amount the pawn takes as a positive number
      */
     virtual void takeDamage(float damage) { health -= std::fabs(damage); }
+    virtual void touch(Actor *actor) { }
     virtual void tick(double delta) {
         Actor::tick(delta);
         destroy= (health <= 0);

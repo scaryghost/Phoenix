@@ -1,10 +1,8 @@
 #include "Phoenix/Allegro5/A5HumanPawn.h"
-#include "Phoenix/Allegro5/A5SingleProj.h"
+#include "Phoenix/Allegro5/A5Single.h"
+#include "Phoenix/Core/Common.h"
 #include "Phoenix/Core/Object.h"
-#include "Phoenix/Core/HitBox.h"
 #include "Phoenix/Core/Actor.h"
-#include "Phoenix/Game/HumanPawn.h"
-#include "Phoenix/Game/Weapon.h"
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -15,8 +13,6 @@
 #include <string>
 #include <unordered_set>
 
-#define PI 3.141592653589793238462643383279502
-
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -25,40 +21,6 @@ using std::make_pair;
 using std::string;
 using std::unordered_set;
 using namespace etsai::phoenix;
-
-class WeaponImpl : public Weapon {
-public:
-    WeaponImpl() : Weapon() {
-        ammo= 100;
-        maxAmmo= 100;
-        fireRate= 1;
-        cooldown= 0.0;
-        index= 0;
-    }
-
-    virtual void doFireEffect() {
-        cerr << "Fire!" << " (" << ammo << ") (" << clock() << ")" << endl;
-    }
-    virtual void consumeAmmo() {
-        ammo--;
-    }
-    virtual void draw() {
-    }
-};
-
-class A5HumanPawnImpl : public A5HumanPawn {
-public:
-    A5HumanPawnImpl(float xPos, float yPos) : A5HumanPawn(xPos, yPos) {
-        Weapon* defaultWeapon= new WeaponImpl();
-        weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
-        currentWeapon= weapons.begin();
-    }
-    virtual void touch(Actor *actor) { al_draw_filled_circle(xPos, yPos, 10.0, al_map_rgb(255, 0, 0));}
-    virtual void tick(double delta) {
-        A5HumanPawn::tick(delta);
-        rotate(PI/180.0);
-    }
-};
 
 int main(int argc, char **argv) {
     int width= atoi(argv[1]), height= atoi(argv[2]);
@@ -86,8 +48,7 @@ int main(int argc, char **argv) {
     ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
-    A5HumanPawnImpl *test= new A5HumanPawnImpl(100, 100);
-    A5SingleProj *proj= new A5SingleProj(640, 360, PI/2);
+    A5HumanPawn *test= new A5HumanPawn(100, 100);
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));

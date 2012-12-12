@@ -1,8 +1,11 @@
 #include "Phoenix/Allegro5/A5HitBox.h"
 #include "Phoenix/Allegro5/A5HumanPawn.h"
+#include "Phoenix/Allegro5/A5Single.h"
 
 namespace etsai {
 namespace phoenix {
+
+using std::make_pair;
 
 A5HumanPawn::A5HumanPawn(float xPos, float yPos) : HumanPawn(xPos, yPos) {
     image= al_load_bitmap("Textures/Enemy-3.tga");
@@ -14,6 +17,10 @@ A5HumanPawn::A5HumanPawn(float xPos, float yPos) : HumanPawn(xPos, yPos) {
     hitbox->addBoundaryPoint(-imageHalfW, imageHalfH);
     hitbox->addBoundaryPoint(imageHalfW, imageHalfH);
     hitbox->addBoundaryPoint(imageHalfW, -imageHalfH);
+
+    Weapon* defaultWeapon= new A5Single();
+    weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
+    currentWeapon= weapons.begin();
 }
 
 A5HumanPawn::~A5HumanPawn() {
