@@ -8,7 +8,7 @@ namespace phoenix {
 using std::make_pair;
 
 A5HumanPawn::A5HumanPawn(float xPos, float yPos) : HumanPawn(xPos, yPos) {
-    image= al_load_bitmap("Textures/Enemy-3.tga");
+    image= al_load_bitmap("Textures/P1-Ship.tga");
     imageHalfW= al_get_bitmap_width(image) / 2;
     imageHalfH= al_get_bitmap_height(image) / 2;
 
@@ -18,7 +18,7 @@ A5HumanPawn::A5HumanPawn(float xPos, float yPos) : HumanPawn(xPos, yPos) {
     hitbox->addBoundaryPoint(imageHalfW, imageHalfH);
     hitbox->addBoundaryPoint(imageHalfW, -imageHalfH);
 
-    Weapon* defaultWeapon= new A5Single(this);
+    Weapon* defaultWeapon= new A5Single(xPos, yPos - imageHalfH, this);
     weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
     currentWeapon= weapons.begin();
 }

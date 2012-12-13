@@ -3,7 +3,7 @@
 namespace etsai {
 namespace phoenix {
 
-Single::Single(Pawn* owner) : Weapon(owner) {
+Single::Single(float xPos, float yPos, Pawn* owner) : Weapon(xPos, yPos, owner) {
     ammo= 100;
     maxAmmo= 100;
     fireRate= 1;

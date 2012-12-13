@@ -15,9 +15,11 @@ class Weapon : public Object {
 public:
     /**
      * Constructs a weapon that belongs to a pawn
+     * @param   xPos    X coordinate of where the weapon is attached to
+     * @param   yPos    Y coordinate of where the weapon is attached to
      * @param   owner   The owner of the weapon
      */
-    Weapon(Pawn* owner);
+    Weapon(float xPos, float yPos, Pawn* owner);
 
     /**
      * Fire the weapon.  If the weapon cannot fire, the function will immediately return

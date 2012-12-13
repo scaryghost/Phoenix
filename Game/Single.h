@@ -9,7 +9,7 @@ namespace phoenix {
 
 class Single : public Weapon {
 public:
-    Single(Pawn* owner);
+    Single(float xPos, float yPos, Pawn* owner);
 
     virtual void consumeAmmo();
     virtual void draw();

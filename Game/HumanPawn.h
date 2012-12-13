@@ -79,6 +79,12 @@ public:
      * @param   dir     Direction to move the ship
      */
     void setDirection(Direction dir);
+    /**
+     * Move the object, hitbox, and weapons with the specified horizontal and vertical offsets
+     * @param   xOffset     Horizontal offset to move the hitbox and object
+     * @param   yOffset     Vertical offset to move the hitbox and object
+     */
+    virtual void translate(float xOffset, float yOffset);
     virtual void tick(double delta);
 
 protected:

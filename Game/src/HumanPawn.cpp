@@ -56,6 +56,13 @@ void HumanPawn::setDirection(Direction dir) {
     this->dir= dir;
 }
 
+void HumanPawn::translate(float xOffset, float yOffset) {
+    Pawn::translate(xOffset, yOffset);
+    for(auto it= weapons.begin(); it != weapons.end(); it++) {
+        it->second->translate(xOffset, yOffset);
+    }
+}
+
 void HumanPawn::tick(double delta) {
     float xDelta(0), yDelta(0);
     Pawn::tick(delta);

@@ -6,7 +6,7 @@ namespace phoenix {
 
 class A5Single : public Single {
 public:
-    A5Single(Pawn *owner);
+    A5Single(float xPos, float yPos, Pawn *owner);
 
     virtual void doFireEffect();
 };
