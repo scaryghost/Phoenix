@@ -13,7 +13,7 @@ public:
     virtual void touch(Actor* actor);
 
 protected:
-    unsigned int value
+    unsigned int value;
 };
 
 }   //namespace phoenix

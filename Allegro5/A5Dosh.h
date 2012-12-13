@@ -7,6 +7,7 @@ namespace etsai {
 namespace phoenix {
 
 class A5Dosh: public Dosh {
+public:
     A5Dosh(float xPos, float yPos, unsigned int value);
 
     virtual void draw();
