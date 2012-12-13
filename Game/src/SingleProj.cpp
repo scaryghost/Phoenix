@@ -1,4 +1,5 @@
 #include "Phoenix/Game/SingleProj.h"
+#include "Phoenix/Core/Common.h"
 
 #include <cmath>
 
@@ -18,7 +19,7 @@ SingleProj::SingleProj(float xPos, float yPos, float rotation) : Projectile(xPos
 void SingleProj::tick(double delta) {
     Projectile::tick(delta);
     translate(xVel * delta, yVel * delta);
-    destroy= (xPos < 0 || yPos < 0);
+    destroy= (xPos < 0 || yPos < 0 || xPos > Common::displayWidth || yPos > Common::displayHeight);
 }
 
 }

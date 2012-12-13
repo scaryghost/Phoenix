@@ -23,8 +23,7 @@ using std::unordered_set;
 using namespace etsai::phoenix;
 
 int main(int argc, char **argv) {
-    int width= atoi(argv[1]), height= atoi(argv[2]);
-    float x= atof(argv[3]), y= atof(argv[4]);
+    Common::init(argc, argv);
 
     if(!al_init()) {
         cerr << "failed to initialize allegro!" << endl;
@@ -43,12 +42,12 @@ int main(int argc, char **argv) {
         return -1;
    }
     al_init_primitives_addon();
-    ALLEGRO_DISPLAY *display= al_create_display(width, height);
+    ALLEGRO_DISPLAY *display= al_create_display(Common::displayWidth, Common::displayHeight);
     ALLEGRO_EVENT_QUEUE *event_queue= al_create_event_queue();
     ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
-    A5HumanPawn *test= new A5HumanPawn(100, 100);
+    A5HumanPawn *test= new A5HumanPawn(Common::displayWidth/2, Common::displayHeight/2);
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
