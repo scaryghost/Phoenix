@@ -1,8 +1,8 @@
-#include "Phoenix/Allegro5/A5HumanPawn.h"
-#include "Phoenix/Allegro5/A5Single.h"
 #include "Phoenix/Core/Common.h"
 #include "Phoenix/Core/Object.h"
 #include "Phoenix/Core/Actor.h"
+
+#include "Phoenix/Game/HumanPawn.h"
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -23,8 +23,6 @@ using std::unordered_set;
 using namespace etsai::phoenix;
 
 int main(int argc, char **argv) {
-    Common::init(argc, argv);
-
     if(!al_init()) {
         cerr << "failed to initialize allegro!" << endl;
         return -1;
@@ -40,14 +38,20 @@ int main(int argc, char **argv) {
     if(!al_init_image_addon()) {
         cerr << "failed to initialize al_init_image_addon!" << endl;
         return -1;
-   }
+    }
+    
     al_init_primitives_addon();
+    
+    Common::init(argc, argv);
+
     ALLEGRO_DISPLAY *display= al_create_display(Common::displayWidth, Common::displayHeight);
     ALLEGRO_EVENT_QUEUE *event_queue= al_create_event_queue();
     ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
-    A5HumanPawn *test= new A5HumanPawn(Common::displayWidth/2, Common::displayHeight/2);
+    cerr << "Hello here 1!" << endl;
+    HumanPawn *test= Common::createHumanPawn(Common::displayWidth/2, Common::displayHeight/2);
+    cerr << "Hello there!" << endl;
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));

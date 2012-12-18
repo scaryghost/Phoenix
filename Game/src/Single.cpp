@@ -1,4 +1,6 @@
+#include "Phoenix/Core/Common.h"
 #include "Phoenix/Game/Single.h"
+#include "Phoenix/Game/SingleProj.h"
 
 namespace etsai {
 namespace phoenix {
@@ -14,7 +16,8 @@ Single::Single(float xPos, float yPos, Pawn* owner) : Weapon(xPos, yPos, owner) 
 void Single::consumeAmmo() {
     ammo--;
 }
-void Single::draw() {
+void Single::doFireEffect() {
+    Common::createSingleProj(owner->getXPos(), owner->getYPos(), owner->getRotation());
 }
 
 }

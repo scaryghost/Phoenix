@@ -8,7 +8,7 @@ namespace phoenix {
 std::unordered_set<Actor*> Actor::actors;
 
 Actor::Actor(float xPos, float yPos) : Object(xPos, yPos) {
-    actors.insert(this);
+    //actors.insert(this);
 }
 
 Actor::~Actor() {

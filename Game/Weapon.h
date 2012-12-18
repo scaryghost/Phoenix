@@ -72,6 +72,7 @@ public:
      * Reduce ammo count of the current weapon.  This function is only called after a successful weapon fire
      */
     virtual void consumeAmmo()= 0;
+    virtual void draw();
 
 protected:
     Pawn* owner;        ///< Pawn that owns the weapon

@@ -46,6 +46,9 @@ int Weapon::getWeaponIndex() const {
     return index;
 }
 
+void Weapon::draw() {
+}
+
 void Weapon::tick(double delta) {
     Object::tick(delta);
     cooldown-= delta;

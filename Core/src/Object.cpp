@@ -35,8 +35,7 @@ void Object::drawObjects() {
     }
 }
 
-Object::Object() :
-destroy(false), xPos(-1), yPos(-1), rotation(0.0) {
+Object::Object() : destroy(false), xPos(-1), yPos(-1), rotation(0.0) {
     enableTick();
     objects.insert(this);
 }
@@ -44,7 +43,7 @@ destroy(false), xPos(-1), yPos(-1), rotation(0.0) {
 Object::Object(float xPos, float yPos) : 
 destroy(false),xPos(xPos),yPos(yPos),rotation(0.0) {
     enableTick();
-    objects.insert(this);
+    //objects.insert(this);
 }
 
 Object::~Object() {
@@ -89,9 +88,13 @@ void Object::disableTick() {
 }
 
 void Object::enableTick() {
+    /*
     if (tickableObjects.count(this) == 0) {
+        std::cerr << "inside if statement" << std::endl;
         tickableObjects.insert(this);
+        std::cerr << "inserted" << std::endl;
     }
+    */
 }
 
 void Object::tick(double delta) {
