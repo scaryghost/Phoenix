@@ -17,7 +17,7 @@ void Single::consumeAmmo() {
     ammo--;
 }
 void Single::doFireEffect() {
-    Common::createSingleProj(owner->getXPos(), owner->getYPos(), owner->getRotation());
+    Common::spawn("SingleProj", owner->getXPos(), owner->getYPos(), owner->getRotation());
 }
 
 }

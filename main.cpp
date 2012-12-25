@@ -49,9 +49,7 @@ int main(int argc, char **argv) {
     ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
-    cerr << "Hello here 1!" << endl;
-    HumanPawn *test= Common::createHumanPawn(Common::displayWidth/2, Common::displayHeight/2);
-    cerr << "Hello there!" << endl;
+    HumanPawn *test= dynamic_cast<HumanPawn*>(Common::spawn("HumanPawn", Common::displayWidth/2, Common::displayHeight/2));
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -113,7 +111,7 @@ int main(int argc, char **argv) {
                 break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
-        Object::drawObjects();
+        Common::drawObjects();
         test->checkCollisions();
         al_flip_display();
     } while(ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
