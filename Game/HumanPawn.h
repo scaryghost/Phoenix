@@ -4,6 +4,8 @@
 #include "Phoenix/Game/Pawn.h"
 #include "Phoenix/Game/Weapon.h"
 
+#include "allegro5/allegro.h"
+
 #include <map>
 
 namespace etsai {
@@ -36,6 +38,9 @@ public:
      * @param   yPos    Y coordinate to spawn at
      */
     HumanPawn(float xPos, float yPos);
+    /**
+     * Free up resources used by the HumanPawn
+     */
     virtual ~HumanPawn();
 
     /**

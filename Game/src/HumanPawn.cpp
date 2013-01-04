@@ -23,8 +23,13 @@ HumanPawn::HumanPawn(float xPos, float yPos) : Pawn(xPos, yPos),
     hitbox->addBoundaryPoint(imageHalfW, -imageHalfH);
 
     Weapon* defaultWeapon= new Single(xPos, yPos - imageHalfH, this);
-    weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
+    weapons[defaultWeapon->getWeaponIndex()]= defaultWeapon;
     currentWeapon= weapons.begin();
+}
+
+HumanPawn::~HumanPawn() {
+   delete hitbox;
+   al_destroy_bitmap(image); 
 }
 
 void HumanPawn::startFiring() {
@@ -102,6 +107,10 @@ void HumanPawn::tick(double delta) {
         xDelta+= 1;
     }
     translate(xDelta, yDelta);
+}
+
+void HumanPawn::draw() {
+    al_draw_rotated_bitmap(image, imageHalfW, imageHalfH, xPos, yPos, rotation, 0);
 }
 
 }

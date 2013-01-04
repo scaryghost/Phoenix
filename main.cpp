@@ -1,8 +1,6 @@
-#include "Phoenix/Allegro5/A5HumanPawn.h"
-#include "Phoenix/Allegro5/A5Single.h"
+#include "Phoenix/Game/HumanPawn.h"
 #include "Phoenix/Core/Common.h"
 #include "Phoenix/Core/Object.h"
-#include "Phoenix/Core/Actor.h"
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -47,7 +45,7 @@ int main(int argc, char **argv) {
     ALLEGRO_TIMER *timer= al_create_timer(1.0/30.0);
     ALLEGRO_EVENT ev;
 
-    A5HumanPawn *test= new A5HumanPawn(Common::displayWidth/2, Common::displayHeight/2);
+    HumanPawn *test= new HumanPawn(Common::displayWidth/2, Common::displayHeight/2);
     unordered_set<int> downKeys;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));

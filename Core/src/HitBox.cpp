@@ -1,4 +1,4 @@
-#include "Phoenix/Core/Hitbox.h"
+#include "Phoenix/Core/HitBox.h"
 #include "allegro5/allegro_primitives.h"
 
 #include <cmath>
@@ -37,7 +37,7 @@ bool HitBox::inside(float x, float y) const {
         xj= get<0>(boundaryOffsets[j]) + xPos;
         yi= get<1>(boundaryOffsets[i]) + yPos;
         yj= get<1>(boundaryOffsets[j]) + yPos;
-        if ((yi < y && yj >= y || yj < y && yi >= y) && (xi <= x || xj <= x)) {
+        if (((yi < y && yj >= y) || (yj < y && yi >= y)) && (xi <= x || xj <= x)) {
             oddNodes^= (xi + (y - yi) / (yj - yi) * (xj - xi) < x);
         }
         j= i;

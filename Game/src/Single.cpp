@@ -1,4 +1,5 @@
 #include "Phoenix/Game/Single.h"
+#include "Phoenix/Game/SingleProj.h"
 
 namespace etsai {
 namespace phoenix {
@@ -18,7 +19,7 @@ void Single::consumeAmmo() {
 void Single::draw() {
 }
 
-void Aingle::doFireEffect() {
+void Single::doFireEffect() {
     new SingleProj(xPos, yPos, owner->getRotation());
 }
 
