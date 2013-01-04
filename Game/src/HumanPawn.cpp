@@ -1,5 +1,8 @@
 #include "Phoenix/Game/HumanPawn.h"
 
+#include "Phoenix/Core/HitBox.h"
+#include "Phoenix/Game/Single.h"
+
 #include <cmath>
 
 namespace etsai {
@@ -9,6 +12,19 @@ using std::max;
 
 HumanPawn::HumanPawn(float xPos, float yPos) : Pawn(xPos, yPos), 
     meter(0), maxMeter(100), meterGainScale(1.0), meterUsageRate(10), cash(0), abilityActive(false),dir(Direction::NEUTRAL) {
+    image= al_load_bitmap("Textures/P1-Ship.tga");
+    imageHalfW= al_get_bitmap_width(image) / 2;
+    imageHalfH= al_get_bitmap_height(image) / 2;
+
+    hitbox= new HitBox(xPos, yPos);
+    hitbox->addBoundaryPoint(-imageHalfW, -imageHalfH);
+    hitbox->addBoundaryPoint(-imageHalfW, imageHalfH);
+    hitbox->addBoundaryPoint(imageHalfW, imageHalfH);
+    hitbox->addBoundaryPoint(imageHalfW, -imageHalfH);
+
+    Weapon* defaultWeapon= new Single(xPos, yPos - imageHalfH, this);
+    weapons.insert(make_pair(defaultWeapon->getWeaponIndex(), defaultWeapon));
+    currentWeapon= weapons.begin();
 }
 
 void HumanPawn::startFiring() {

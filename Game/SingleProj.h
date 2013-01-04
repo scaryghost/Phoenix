@@ -12,6 +12,7 @@ public:
     SingleProj(float xPos, float yPos, float rotation);
 
     virtual void tick(double delta);
+    virtual void draw();
 
 protected:
     float velocity;

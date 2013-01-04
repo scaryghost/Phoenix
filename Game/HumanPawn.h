@@ -36,6 +36,7 @@ public:
      * @param   yPos    Y coordinate to spawn at
      */
     HumanPawn(float xPos, float yPos);
+    virtual ~HumanPawn();
 
     /**
      * Trigger the current weapon to fire
@@ -86,6 +87,7 @@ public:
      */
     virtual void translate(float xOffset, float yOffset);
     virtual void tick(double delta);
+    virtual void draw();
 
 protected:
     float meter;                                ///< Current meter of the ship
@@ -96,8 +98,11 @@ protected:
     bool abilityActive;                         ///< True if the ship's special ability is active
     Direction dir;                              ///< Current movement direction of the ship
     std::map<int, Weapon*> weapons;             ///< Weapons belonging to the ship
-    std::map<int, Weapon*>::iterator currentWeapon;                          ///< Index of the current weapon the ship is using
+    std::map<int, Weapon*>::iterator currentWeapon;     ///< Index of the current weapon the ship is using
     bool isFiring;
+
+    ALLEGRO_BITMAP *image;
+    int imageHalfW, imageHalfH;
 };
 
 }   //namespace phoenix

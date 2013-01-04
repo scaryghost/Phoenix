@@ -14,7 +14,12 @@ Single::Single(float xPos, float yPos, Pawn* owner) : Weapon(xPos, yPos, owner) 
 void Single::consumeAmmo() {
     ammo--;
 }
+
 void Single::draw() {
+}
+
+void Aingle::doFireEffect() {
+    new SingleProj(xPos, yPos, owner->getRotation());
 }
 
 }

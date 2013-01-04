@@ -53,6 +53,7 @@ public:
      */
     void removeLastPoint();
 
+    virtual void draw();
 protected:
     std::vector<std::tuple<float, float> > boundaryOffsets; ///< List of the boundary points offsets, stored as (xOffset, yOffset)
 };

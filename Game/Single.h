@@ -13,6 +13,7 @@ public:
 
     virtual void consumeAmmo();
     virtual void draw();
+    virtual void doFireEffect();
 };
 
 }   //namespace phoenix

@@ -10,7 +10,9 @@ namespace phoenix {
 class Dosh : public SingleProj {
 public:
     Dosh(float xPos, float yPos, unsigned int value);
+
     virtual void touch(Actor* actor);
+    virtual void draw();
 
 protected:
     unsigned int value;

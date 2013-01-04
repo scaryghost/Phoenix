@@ -1,5 +1,6 @@
 #include "Phoenix/Game/SingleProj.h"
 #include "Phoenix/Core/Common.h"
+#include "Phoenix/Core/HitBox.h"
 
 #include <cmath>
 
@@ -14,12 +15,24 @@ using std::sin;
 SingleProj::SingleProj(float xPos, float yPos, float rotation) : Projectile(xPos, yPos), velocity(100.0), rotation(rotation) {
     xVel= velocity * cos(PI/2.0 - rotation);
     yVel= -velocity * sin(PI/2.0 - rotation);
+
+    hitbox= new HitBox(xPos, yPos);
+    hitbox->addBoundaryPoint(-4, 20);
+    hitbox->addBoundaryPoint(4, 20);
+    hitbox->addBoundaryPoint(4, -20);
+    hitbox->addBoundaryPoint(-4, -20);
+    hitbox->rotate(rotation);
+
 }
 
 void SingleProj::tick(double delta) {
     Projectile::tick(delta);
     translate(xVel * delta, yVel * delta);
     destroy= (xPos < 0 || yPos < 0 || xPos > Common::displayWidth || yPos > Common::displayHeight);
+}
+
+void SingleProj::draw() {
+
 }
 
 }
