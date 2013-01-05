@@ -1,6 +1,7 @@
+DIST=dist
 CPPC=g++
 INC_DIR=..
-MAIN_OBJ=phoenix
+MAIN_OBJ=$(DIST)/phoenix
 MAIN=main.cpp
 SRCS:=
 
