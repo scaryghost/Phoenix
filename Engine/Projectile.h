@@ -1,7 +1,7 @@
 #ifndef ETSAI_PHOENIX_GAME_PROJECTILE
 #define ETSAI_PHOENIX_GAME_PROJECTILE
 
-#include "Phoenix/Core/Actor.h"
+#include "Phoenix/Engine/Actor.h"
 
 namespace etsai {
 namespace phoenix {

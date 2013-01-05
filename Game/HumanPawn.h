@@ -1,8 +1,8 @@
 #ifndef ETSAI_PHOENIX_GAME_HUMANPAWN
 #define ETSAI_PHOENIX_GAME_HUMANPAWN
 
-#include "Phoenix/Game/Pawn.h"
-#include "Phoenix/Game/Weapon.h"
+#include "Phoenix/Engine/Pawn.h"
+#include "Phoenix/Engine/Weapon.h"
 
 #include "allegro5/allegro.h"
 

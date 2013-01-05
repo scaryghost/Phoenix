@@ -1,6 +1,6 @@
 #include "Phoenix/Game/SingleProj.h"
 #include "Phoenix/Core/Common.h"
-#include "Phoenix/Core/HitBox.h"
+#include "Phoenix/Engine/HitBox.h"
 
 #include <cmath>
 

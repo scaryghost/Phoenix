@@ -2,7 +2,7 @@
 #define ETSAI_PHOENIX_GAME_WEAPON
 
 #include "Phoenix/Core/Object.h"
-#include "Phoenix/Game/Pawn.h"
+#include "Phoenix/Engine/Pawn.h"
 
 namespace etsai {
 namespace phoenix {

@@ -1,4 +1,4 @@
-#include "Phoenix/Core/HitBox.h"
+#include "Phoenix/Engine/HitBox.h"
 #include "allegro5/allegro_primitives.h"
 
 #include <cmath>

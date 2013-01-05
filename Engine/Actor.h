@@ -1,8 +1,8 @@
 #ifndef ETSAI_PHOENIX_CORE_ACTOR
 #define ETSAI_PHOENIX_CORE_ACTOR
 
-#include "Phoenix/Core/HitBox.h"
 #include "Phoenix/Core/Object.h"
+#include "Phoenix/Engine/HitBox.h"
 
 #include <unordered_set>
 

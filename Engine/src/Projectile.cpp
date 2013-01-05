@@ -1,6 +1,6 @@
-#include "Phoenix/Game/Projectile.h"
+#include "Phoenix/Engine/Projectile.h"
 
-#include "Phoenix/Game/Pawn.h"
+#include "Phoenix/Engine/Pawn.h"
 
 namespace etsai {
 namespace phoenix {

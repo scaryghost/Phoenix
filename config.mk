@@ -5,6 +5,7 @@ MAIN=main.cpp
 SRCS:=
 
 MODULES=Core\
+    Engine\
     Game
 ALLEGRO_LIBS=allegro-5.0 allegro_font-5.0 allegro_ttf-5.0 allegro_primitives-5.0 allegro_image-5.0
 

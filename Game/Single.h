@@ -1,8 +1,8 @@
 #ifndef ETSAI_PHOENIX_GAME_SINGLE
 #define ETSAI_PHOENIX_GAME_SINGLE
 
-#include "Phoenix/Game/Weapon.h"
-#include "Phoenix/Game/Pawn.h"
+#include "Phoenix/Engine/Weapon.h"
+#include "Phoenix/Engine/Pawn.h"
 
 namespace etsai {
 namespace phoenix {
